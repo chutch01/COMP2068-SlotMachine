@@ -72,13 +72,18 @@
     <Content Include="assets\images\chest.png" />
     <Content Include="assets\images\creditButton.png" />
     <Content Include="assets\images\moonstone.png" />
+    <Content Include="assets\images\Pikachu.png" />
     <Content Include="assets\images\replay.png" />
     <Content Include="assets\images\resetButton.png" />
     <Content Include="assets\images\Seven.png" />
     <Content Include="assets\images\spinButton.png" />
     <Content Include="css\game.css" />
     <Content Include="index.html" />
-    <None Include="Scripts\lib\_references.js" />
+    <None Include="_references.js" />
+    <Content Include="Scripts\lib\easeljs-0.8.0.min.js" />
+    <Content Include="Scripts\lib\preloadjs-0.6.0.min.js" />
+    <Content Include="Scripts\lib\soundjs-0.6.0.min.js" />
+    <Content Include="Scripts\lib\tweenjs-0.6.0.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -89,7 +94,12 @@
     <Folder Include="assets\fonts\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\lib\game.ts" />
+    <TypeScriptCompile Include="game.ts" />
+    <TypeScriptCompile Include="Scripts\lib\createjs-lib.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\easeljs.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\preloadjs.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\soundjs.d.ts" />
+    <TypeScriptCompile Include="Scripts\lib\tweenjs.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
