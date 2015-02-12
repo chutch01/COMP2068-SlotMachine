@@ -71,18 +71,7 @@ function creditbuttonOver() {
 }
 
 function spinReels() {
-    /*spinResult = Reels();
-    fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-    console.log(fruits)
-
-    for (var tile = 0; tile < 3; tile++) {
-        tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
-        console.log(tiles[tile[);
-        tiles[tile].x = tileX + (105 * tile);
-        tiles[tile].y = 188;
-        game.addChild(tiles[tile]);
-    }
-*/
+    //add code  
     console.log("spin clicked");
 }
 
@@ -152,7 +141,7 @@ function main() {
     createUI();
 
 
-
+    //comment
 
     stage.addChild(game);
 

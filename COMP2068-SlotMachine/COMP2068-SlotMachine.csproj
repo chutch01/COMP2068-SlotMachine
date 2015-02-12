@@ -79,7 +79,7 @@
     <Content Include="assets\images\spinButton.png" />
     <Content Include="css\game.css" />
     <Content Include="index.html" />
-    <None Include="_references.js" />
+    <None Include="Scripts\_references.js" />
     <Content Include="Scripts\lib\easeljs-0.8.0.min.js" />
     <Content Include="Scripts\lib\preloadjs-0.6.0.min.js" />
     <Content Include="Scripts\lib\soundjs-0.6.0.min.js" />
@@ -94,7 +94,7 @@
     <Folder Include="assets\fonts\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="game.ts" />
+    <TypeScriptCompile Include="Scripts\game.ts" />
     <TypeScriptCompile Include="Scripts\lib\createjs-lib.d.ts" />
     <TypeScriptCompile Include="Scripts\lib\easeljs.d.ts" />
     <TypeScriptCompile Include="Scripts\lib\preloadjs.d.ts" />
