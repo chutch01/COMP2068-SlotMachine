@@ -120,8 +120,8 @@ function spinReels() {
         }
         tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
         //CHANGE THESE VALUES LATER++++++++++++++++++++++++++++++++++++++++++
-        tiles[tile].x = 59 + (105 * tile);
-        tiles[tile].y = 188;
+        tiles[tile].x = 130 + (150 * tile);
+        tiles[tile].y = 145;
 
         game.addChild(tiles[tile]);
         console.log(game.getNumChildren());
@@ -147,31 +147,31 @@ function Reels() {
         console.log(outCome);
         switch (outCome[spin]) {
             case checkRange(outCome[spin], 1, 27):
-                betLine[spin] = "blank";
+                betLine[spin] = "blank1";
                 blanks++;
                 break;
             case checkRange(outCome[spin], 28, 37):
-                betLine[spin] = "chest";
+                betLine[spin] = "chest1";
                 chests++;
                 break;
             case checkRange(outCome[spin], 38, 46):
-                betLine[spin] = "cherry";
+                betLine[spin] = "cherry1";
                 cherries++;
                 break;
             case checkRange(outCome[spin], 47, 54):
-                betLine[spin] = "replay";
+                betLine[spin] = "replay1";
                 replays++;
                 break;
             case checkRange(outCome[spin], 55, 60):
-                betLine[spin] = "pikachu";
+                betLine[spin] = "pikachu1";
                 pikachus++;
                 break;
             case checkRange(outCome[spin], 61, 64):
-                betLine[spin] = "moonstone";
+                betLine[spin] = "moonstone1";
                 moonstones++;
                 break;
             case checkRange(outCome[spin], 65, 65):
-                betLine[spin] = "seven";
+                betLine[spin] = "seven1";
                 sevens++;
                 break;
         }
@@ -183,14 +183,12 @@ function Reels() {
 if (blanks == 0) {
     if (chests == 3) {
         winnings = playerBet * 10;
-    } else if (chests == 3) {
+    }else if (cherries == 3) {
         winnings = playerBet * 20;
-    } else if (cherries == 3) {
-        winnings = playerBet * 30;
     } else if (replays == 3) {
-        winnings = playerBet * 40;
+        winnings = playerBet * 30;
     } else if (pikachus == 3) {
-        winnings = playerBet * 50;
+        winnings = playerBet * 40;
     } else if (moonstones == 3) {
         winnings = playerBet * 75;
     } else if (sevens == 3) {
@@ -215,13 +213,18 @@ if (blanks == 0) {
         winnings = playerBet * 5;
     }
     winNumber++;
-    // showWinMessage();
+   // showWinMessage();
 } else {
         lossNumber++;
-        //  showLossMessage();
+  //  showLossMessage();
     }
 
-
+function showWinMessage() {
+    console.log("you won " + winnings + "!");
+}
+function showLossMessage() {
+    console.log("you lost " + playerBet + "!");
+}
 function addCredit() {
     playerBet += 50;
     console.log("credit added");

@@ -68,15 +68,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
-    <Content Include="assets\images\blank.png" />
-    <Content Include="assets\images\cherry.png" />
-    <Content Include="assets\images\chest.png" />
+    <Content Include="assets\images\blank1.png" />
+    <Content Include="assets\images\cherry1.png" />
+    <Content Include="assets\images\chest1.png" />
     <Content Include="assets\images\creditButton.png" />
-    <Content Include="assets\images\moonstone.png" />
-    <Content Include="assets\images\Pikachu.png" />
-    <Content Include="assets\images\replay.png" />
+    <Content Include="assets\images\moonstone1.png" />
+    <Content Include="assets\images\Pikachu1.png" />
+    <Content Include="assets\images\replay1.png" />
     <Content Include="assets\images\resetButton.png" />
-    <Content Include="assets\images\Seven.png" />
+    <Content Include="assets\images\Seven1.png" />
     <Content Include="assets\images\spinButton.png" />
     <Content Include="css\game.css" />
     <Content Include="index.html" />
