@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\images\background.png" />
+    <Content Include="assets\images\blank.png" />
     <Content Include="assets\images\cherry.png" />
     <Content Include="assets\images\chest.png" />
     <Content Include="assets\images\creditButton.png" />

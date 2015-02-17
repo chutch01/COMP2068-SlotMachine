@@ -1,23 +1,38 @@
 ﻿var canvas;
-var playerMoney = 1000;
 var stage: createjs.Stage;
-var spinButton;
-var creditButton;
-var resetButton;
-var cherry;
-var chest;
-var pikachu;
-var moonstone;
-var replay;
-var seven;
-var fruits;
 
 
 // Game Objects
 var game: createjs.Container;
 var background: createjs.Bitmap;
-var spinBUtton: createjs.Bitmap;
+var spinButton: createjs.Bitmap;
+var creditButton: createjs.Bitmap;
+var resetButton: createjs.Bitmap;
 var tiles: createjs.Bitmap[] = [];
+var tileContainers: createjs.Bitmap[] = [];
+
+//game variables
+var playerMoney = 1000;
+var winnings = 0;
+var jackpot = 5000;
+var turn = 0;
+var playerBet = 0;
+var winNumber = 0;
+var lossNumber = 0;
+var spinResult;
+var fruits = "";
+var winRatio = 0;
+
+
+//slot item variables
+var cherries = 0;
+var chests = 0;
+var moonstones = 0;
+var pikachus = 0;
+var replays = 0;
+var sevens = 0;
+var blanks = 0;
+
 
 function init() {
     canvas = document.getElementById("canvas");
@@ -36,7 +51,29 @@ function init() {
 function gameLoop() {
     stage.update();
 }
+//function that will reset the tallies when the spin is complete
+function resetFruitTally() {
+    cherries = 0;
+    chests = 0;
+    moonstones = 0;
+    pikachus = 0;
+    replays = 0;
+    sevens = 0;
+    blanks = 0;
+}
 
+function resetVariables() {
+    var playerMoney = 1000;
+    var winnings = 0;
+    var jackpot = 5000;
+    var turn = 0;
+    var playerBet = 0;
+    var winNumber = 0;
+    var lossNumber = 0;
+    var spinResult;
+    var fruits = "";
+    var winRatio = 0;
+}
 function buttonClicked() {
 }
 //spin button functions ++++++++++++++++++
@@ -69,19 +106,130 @@ function creditbuttonOver() {
     creditButton.alpha = 0.4;
     console.log("mouse over credit");
 }
-
+//actual code stuff
 function spinReels() {
     //add code  
     console.log("spin clicked");
+    spinResult = Reels();
+    fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+    console.log(fruits);
+
+    for (var tile = 0; tile < 3; tile++) {
+        if (turn > 0) {
+            game.removeChild(tiles[tile]);
+        }
+        tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
+        //CHANGE THESE VALUES LATER++++++++++++++++++++++++++++++++++++++++++
+        tiles[tile].x = 59 + (105 * tile);
+        tiles[tile].y = 188;
+
+        game.addChild(tiles[tile]);
+        console.log(game.getNumChildren());
+    }
+}
+    //utlility function if a value functions 
+    function checkRange(value, lowerBounds, upperBounds) {
+        if (value >= lowerBounds && value <= upperBounds) {
+            return value;
+        }
+        else {
+            return !value;
+        }
+    }
+
+//this function determines the betline results(bar-moonstone-replay)
+function Reels() {
+    var betLine = [" ", " ", " "];
+    var outCome = [0, 0, 0];
+
+    for (var spin = 0; spin < 3; spin++) {
+        outCome[spin] = Math.floor((Math.random() * 65) + 1);
+        console.log(outCome);
+        switch (outCome[spin]) {
+            case checkRange(outCome[spin], 1, 27):
+                betLine[spin] = "blank";
+                blanks++;
+                break;
+            case checkRange(outCome[spin], 28, 37):
+                betLine[spin] = "chest";
+                chests++;
+                break;
+            case checkRange(outCome[spin], 38, 46):
+                betLine[spin] = "cherry";
+                cherries++;
+                break;
+            case checkRange(outCome[spin], 47, 54):
+                betLine[spin] = "replay";
+                replays++;
+                break;
+            case checkRange(outCome[spin], 55, 60):
+                betLine[spin] = "pikachu";
+                pikachus++;
+                break;
+            case checkRange(outCome[spin], 61, 64):
+                betLine[spin] = "moonstone";
+                moonstones++;
+                break;
+            case checkRange(outCome[spin], 65, 65):
+                betLine[spin] = "seven";
+                sevens++;
+                break;
+        }
+    }
+    return betLine;
 }
 
+//function to determine the winnings
+if (blanks == 0) {
+    if (chests == 3) {
+        winnings = playerBet * 10;
+    } else if (chests == 3) {
+        winnings = playerBet * 20;
+    } else if (cherries == 3) {
+        winnings = playerBet * 30;
+    } else if (replays == 3) {
+        winnings = playerBet * 40;
+    } else if (pikachus == 3) {
+        winnings = playerBet * 50;
+    } else if (moonstones == 3) {
+        winnings = playerBet * 75;
+    } else if (sevens == 3) {
+        winnings = playerBet * 100;
+    } else if (chests == 2) {
+        winnings = playerBet * 2;
+    } else if (cherries == 2) {
+        winnings = playerBet * 3;
+    } else if (replays == 2) {
+        winnings = playerBet * 4;
+    } else if (pikachus == 2) {
+        winnings = playerBet * 5;
+    } else if (moonstones == 2) {
+        winnings = playerBet * 7;
+    } else if (sevens == 2) {
+        winnings = playerBet * 20;
+    } else {
+        winnings = playerBet * 1;
+    }
+
+    if (sevens == 1) {
+        winnings = playerBet * 5;
+    }
+    winNumber++;
+    // showWinMessage();
+} else {
+        lossNumber++;
+        //  showLossMessage();
+    }
+
+
 function addCredit() {
-    //add code
+    playerBet += 50;
     console.log("credit added");
 }
 
 function resetGame() {
-    //add code
+    resetFruitTally();
+    resetVariables();
     console.log("game reset");
 }
 
