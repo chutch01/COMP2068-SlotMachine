@@ -23,6 +23,10 @@ var spinResult;
 var fruits = "";
 var winRatio = 0;
 
+//game text
+var creditTextBox: createjs.Text;
+var payoutTextBox: createjs.Text;
+
 
 //slot item variables
 var cherries = 0;
@@ -107,6 +111,8 @@ function creditbuttonOver() {
     console.log("mouse over credit");
 }
 //actual code stuff
+
+
 function spinReels() {
     //add code  
     console.log("spin clicked");
@@ -211,6 +217,7 @@ if (blanks == 0) {
 
     if (sevens == 1) {
         winnings = playerBet * 5;
+        payoutTextBox.text = winnings.toString();
     }
     winNumber++;
    // showWinMessage();
@@ -226,7 +233,9 @@ function showLossMessage() {
     console.log("you lost " + playerBet + "!");
 }
 function addCredit() {
-    playerBet += 50;
+    playerBet += 50
+    playerMoney -= 50;
+    creditTextBox.text = playerMoney.toString();
     console.log("credit added");
 }
 
@@ -234,6 +243,7 @@ function resetGame() {
     resetFruitTally();
     resetVariables();
     console.log("game reset");
+    creditTextBox.text = playerMoney.toString();
 }
 
 function createUI(): void {
@@ -271,6 +281,19 @@ function createUI(): void {
     resetButton.addEventListener("click", resetGame);
     resetButton.addEventListener("mouseover", resetbuttonOver);
     resetButton.addEventListener("mouseout", resetbuttonOut);
+
+    //total credit text
+    creditTextBox = new createjs.Text(playerMoney.toString(), "25px Impact", "#FFFF00");
+    creditTextBox.x = 205;
+    creditTextBox.y = 415;
+    game.addChild(creditTextBox);
+
+    //payout credit text
+    payoutTextBox = new createjs.Text(winnings.toString(), "25px Impact", "#FFFF00");
+    payoutTextBox.x = 405;
+    payoutTextBox.y = 415;
+    game.addChild(payoutTextBox);
+
 }
 
 
