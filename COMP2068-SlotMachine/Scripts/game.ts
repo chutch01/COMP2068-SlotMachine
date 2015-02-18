@@ -143,10 +143,10 @@ function spinReels() {
             resetGame();
         }
 
-        } else if (playerBet > playerMoney) {
-            if (confirm("you dont have enough to make the minumum 50 credit payment! play again?")) {
-                resetGame();
-            }
+        } else if (playerMoney < playerBet) {
+            playerBet = 0;
+            betTextBox.text = playerBet.toString();
+            
         } else {
 
             creditTextBox.text = playerMoney.toString();
@@ -259,32 +259,49 @@ function spinReels() {
             }
             winNumber++;
             showWinMessage();
+            checkJackpot();
         } else {
             lossNumber++;
             showLossMessage();
         }
     }
+
+function checkJackpot() {
+    /* compare two random values */
+    var jackPotTry = Math.floor(Math.random() * 51 + 1);
+    var jackPotWin = Math.floor(Math.random() * 51 + 1);
+    if (jackPotTry == jackPotWin) {
+        alert("You Won the $" + jackpot + " Jackpot!!");
+        playerMoney += jackpot;
+        jackpot = 1000;
+    }
+}
     function showWinMessage() {
         playerMoney += winnings;
         payoutTextBox.text = winnings.toString();
         resetFruitTally();
         console.log("you won " + winnings + "!");
     }
-    function showLossMessage() {
+function showLossMessage() {
+    playerMoney -= playerBet;
         console.log("you lost " + playerBet + "!");
         payoutTextBox.text = winnings.toString();
         resetFruitTally();
     }
     //adds credit to the spin from the player money and will not add if player money is zero
     function addCredit() {
+        if (playerMoney < 50) {
+            playerBet = playerMoney;
+            playerMoney -= playerMoney;
+        } else {
+            playerBet += 50;
+            playerMoney -= 50;
+            creditTextBox.text = playerMoney.toString();
+            betTextBox.text = playerBet.toString();
 
-        playerBet += 50;
-        playerMoney -= 50;
-        creditTextBox.text = playerMoney.toString();
-        betTextBox.text = playerBet.toString();
 
-
-        console.log("credit added");
+            console.log("credit added");
+        }
     }
 
 function resetGame() {
@@ -403,4 +420,3 @@ function createUI(): void {
         stage.addChild(game);
 
     }
-
