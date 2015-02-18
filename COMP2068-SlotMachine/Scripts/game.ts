@@ -124,9 +124,7 @@ function spinReels() {
 
     if (playerBet == 0) {
    
-    }
-
-    else {
+    }else {
     spinResult = Reels();
     fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
     console.log(fruits);
@@ -148,8 +146,7 @@ function spinReels() {
     function checkRange(value, lowerBounds, upperBounds) {
         if (value >= lowerBounds && value <= upperBounds) {
             return value;
-        }
-        else {
+        }else {
             return !value;
         }
     }
@@ -227,8 +224,7 @@ if (blanks == 0) {
     }
 
     if (sevens == 1) {
-        winnings = playerBet * 5;
-        
+        winnings = playerBet * 5;        
     }
     winNumber++;
    showWinMessage();
@@ -248,11 +244,11 @@ function showLossMessage() {
     payoutTextBox.text = winnings.toString();
     resetFruitTally();
 }
+//adds credit to the spin from the player money and will not add if player money is zero
 function addCredit() {
     if (playerMoney <= 0) {
         playerMoney = 0;
-    }
-    else {
+    }else {
         playerBet += 50
     playerMoney -= 50;
         creditTextBox.text = playerMoney.toString();
@@ -264,6 +260,7 @@ function addCredit() {
 
 function resetGame() {
     playerMoney = 1000
+    playerBet = 0;
     winnings = 0;
     jackpot = 5000;
     turn = 0;
@@ -272,6 +269,10 @@ function resetGame() {
     lossNumber = 0;
     winRatio = 0;
     creditTextBox.text = playerMoney.toString();
+    payoutTextBox.text = winnings.toString();
+    jackpotTextBox.text = jackpot.toString();
+    betTextBox.text = playerBet.toString();
+
 
 }
 //this is the actual UI of the game
