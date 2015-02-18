@@ -121,9 +121,7 @@ function spinReels() {
     console.log("spin clicked");
 
     if (playerBet == 0) {
-        if confirm("game over. play again?")) {
-
-        }
+   
     }
 
     else {
@@ -276,7 +274,7 @@ function resetGame() {
 
 function createUI(): void {
     //instantiate background
-    background = new createjs.Bitmap("assets/images/background.png");
+    background = new createjs.Bitmap("assets/images/background1.png");
     game.addChild(background);
 
 
