@@ -29,6 +29,8 @@ var payoutTextBox: createjs.Text;
 var winTextBox: createjs.Text;
 var loseTextBox: createjs.Text;
 var gameOverTextBox: createjs.Text;
+var betTextBox: createjs.Text;
+var jackpotTextBox: createjs.Text;
 
 
 //slot item variables
@@ -254,6 +256,7 @@ function addCredit() {
         playerBet += 50
     playerMoney -= 50;
         creditTextBox.text = playerMoney.toString();
+        betTextBox.text = playerBet.toString();
 
     }
     console.log("credit added"); 
@@ -271,9 +274,9 @@ function resetGame() {
     creditTextBox.text = playerMoney.toString();
 
 }
-
+//this is the actual UI of the game
 function createUI(): void {
-    //instantiate background
+    //instantiate background ++++++++++++++++++++++++++++++++++++++++++++++++++
     background = new createjs.Bitmap("assets/images/background1.png");
     game.addChild(background);
 
@@ -319,6 +322,19 @@ function createUI(): void {
     payoutTextBox.x = 405;
     payoutTextBox.y = 415;
     game.addChild(payoutTextBox);
+
+    //bet text
+    betTextBox = new createjs.Text(playerBet.toString(), "25px Impact", "#FFFF00");
+    betTextBox.x = 215;
+    betTextBox.y = 23;
+    game.addChild(betTextBox);
+
+    //jackpot text
+    jackpotTextBox = new createjs.Text(jackpot.toString(), "25px Impact", "#FFFF00");
+    jackpotTextBox.x = 380;
+    jackpotTextBox.y = 23;
+    game.addChild(jackpotTextBox);
+
 
 }
 
