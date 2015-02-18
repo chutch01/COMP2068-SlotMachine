@@ -8,6 +8,7 @@ var background: createjs.Bitmap;
 var spinButton: createjs.Bitmap;
 var creditButton: createjs.Bitmap;
 var resetButton: createjs.Bitmap;
+var exitButton: createjs.Bitmap;
 var tiles: createjs.Bitmap[] = [];
 var tileContainers: createjs.Bitmap[] = [];
 
@@ -114,6 +115,21 @@ function creditbuttonOut() {
 function creditbuttonOver() {
     creditButton.alpha = 0.4;
     console.log("mouse over credit");
+}
+
+//exit button functions +++++++++++++++++++++++++++++++
+function exitGame() {
+    if (confirm("Are you sure you want to quit?")) {
+        close();
+    }
+}
+function exitbuttonOver() {
+    exitButton.alpha = 0.4;
+    console.log("mouse over exit");
+}
+function exitbuttonOut() {
+    exitButton.alpha = 1.0;
+    console.log("mouse out exit");
 }
 //actual code stuff
 
@@ -324,6 +340,17 @@ function createUI(): void {
     resetButton.addEventListener("click", resetGame);
     resetButton.addEventListener("mouseover", resetbuttonOver);
     resetButton.addEventListener("mouseout", resetbuttonOut);
+
+    //exit button
+    exitButton = new createjs.Bitmap("assets/images/exitButton1.png");
+    exitButton.x = 50;
+    exitButton.y = 100;
+    game.addChild(exitButton);
+
+    exitButton.addEventListener("click", exitGame);
+    exitButton.addEventListener("mouseover", exitbuttonOver);
+    exitButton.addEventListener("mouseout", exitbuttonOut);
+
 
     //total credit text
     creditTextBox = new createjs.Text(playerMoney.toString(), "25px Impact", "#FFFF00");

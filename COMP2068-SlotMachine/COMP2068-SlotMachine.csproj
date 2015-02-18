@@ -72,6 +72,7 @@
     <Content Include="assets\images\cherry1.png" />
     <Content Include="assets\images\chest1.png" />
     <Content Include="assets\images\creditButton.png" />
+    <Content Include="assets\images\exitButton1.png" />
     <Content Include="assets\images\moonstone1.png" />
     <Content Include="assets\images\Pikachu1.png" />
     <Content Include="assets\images\replay1.png" />
