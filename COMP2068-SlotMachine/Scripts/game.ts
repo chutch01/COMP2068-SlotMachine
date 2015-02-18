@@ -11,6 +11,7 @@ var resetButton: createjs.Bitmap;
 var exitButton: createjs.Bitmap;
 var tiles: createjs.Bitmap[] = [];
 var tileContainers: createjs.Bitmap[] = [];
+var gameCorner: createjs.Sound;
 
 //game variables
 var playerMoney = 1000;
@@ -50,8 +51,13 @@ function init() {
     stage.enableMouseOver(20); // Enable mouse events
     createjs.Ticker.setFPS(60); // 60 frames per second
     createjs.Ticker.addEventListener("tick", gameLoop);
+    createjs.Sound.alternateExtensions = ["mp3"];
+    createjs.Sound.on("fileload", this.gameMusic, this);
+    createjs.Sound.registerSound("assets/audio/Pokemon D-P Music - Game Corner.mp3", "Game Corner");
+    
 
     main();
+    
 }
 
 
@@ -60,6 +66,12 @@ function init() {
 
 function gameLoop() {
     stage.update();
+}
+
+function gameMusic() {
+    var instance = createjs.Sound.play("Game Corner");  // play using id.  Could also use full sourcepath or event.src.
+    instance.on("complete", this.handleComplete, this);
+    instance.volume = 0.5;
 }
 //function that will reset the tallies when the spin is complete
 function resetFruitTally() {
@@ -296,9 +308,11 @@ function showLossMessage() {
     }
     //adds credit to the spin from the player money and will not add if player money is zero
 function addCredit() {
-        if (playerMoney < 50) {
+        if (playerMoney <= playerBet) {
             playerBet = playerMoney;
-            playerMoney -= playerMoney;
+            playerMoney = 0;
+            creditTextBox.text = playerMoney.toString();
+            betTextBox.text = playerBet.toString();
         } else {
             playerBet += 50;
             playerMoney -= 50;
@@ -412,8 +426,8 @@ function createUI(): void {
     function main() {
         // instantiate my container
         game = new createjs.Container();
-        game.x = 23;
-        game.y = 6;
+        game.x = 0;
+        game.y = 0;
 
 
 
