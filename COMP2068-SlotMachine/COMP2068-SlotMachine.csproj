@@ -67,6 +67,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\audio\Pokemon D-P Music - Game Corner.mp3" />
     <Content Include="assets\images\background1.png" />
     <Content Include="assets\images\blank1.png" />
     <Content Include="assets\images\cherry1.png" />
@@ -92,7 +93,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="assets\audio\" />
     <Folder Include="assets\fonts\" />
   </ItemGroup>
   <ItemGroup>
