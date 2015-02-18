@@ -122,141 +122,154 @@ function spinReels() {
     //add code  
     console.log("spin clicked");
 
-    if (playerBet == 0) {
-   
-    }else {
-    spinResult = Reels();
-    fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-    console.log(fruits);
+    if (playerMoney == 0) {
+        if (confirm("you dont have any credit left! play again?")) {
+            resetGame();
+        }
 
-           for (var tile = 0; tile < 3; tile++) {
-               if (turn > 0) {
-                   game.removeChild(tiles[tile]);
-               }
-               tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
-               tiles[tile].x = 130 + (150 * tile);
-               tiles[tile].y = 145;
+        } else if (playerBet > playerMoney) {
+            if (confirm("you dont have enough to make the minumum 50 credit payment! play again?")) {
+                resetGame();
+            }
+        } else {
 
-               game.addChild(tiles[tile]);
-               console.log(game.getNumChildren());
-           }
+            creditTextBox.text = playerMoney.toString();
+
+            spinResult = Reels();
+            fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+            console.log(fruits);
+
+            for (var tile = 0; tile < 3; tile++) {
+                if (turn > 0) {
+                    game.removeChild(tiles[tile]);
+                }
+                tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
+                tiles[tile].x = 130 + (150 * tile);
+                tiles[tile].y = 145;
+
+                game.addChild(tiles[tile]);
+                console.log(game.getNumChildren());
+
+
+            }
+            determineWinnings();
+        }
     }
-}
+
     //utlility function if a value functions 
     function checkRange(value, lowerBounds, upperBounds) {
         if (value >= lowerBounds && value <= upperBounds) {
             return value;
-        }else {
+        } else {
             return !value;
         }
     }
 
-//this function determines the betline results(bar-moonstone-replay)
-function Reels() {
-    var betLine = [" ", " ", " "];
-    var outCome = [0, 0, 0];
+    //this function determines the betline results(bar-moonstone-replay)
+    function Reels() {
+        var betLine = [" ", " ", " "];
+        var outCome = [0, 0, 0];
 
-    for (var spin = 0; spin < 3; spin++) {
-        outCome[spin] = Math.floor((Math.random() * 65) + 1);
-        console.log(outCome);
-        switch (outCome[spin]) {
-            case checkRange(outCome[spin], 1, 27):
-                betLine[spin] = "blank1";
-                blanks++;
-                break;
-            case checkRange(outCome[spin], 28, 37):
-                betLine[spin] = "chest1";
-                chests++;
-                break;
-            case checkRange(outCome[spin], 38, 46):
-                betLine[spin] = "cherry1";
-                cherries++;
-                break;
-            case checkRange(outCome[spin], 47, 54):
-                betLine[spin] = "replay1";
-                replays++;
-                break;
-            case checkRange(outCome[spin], 55, 60):
-                betLine[spin] = "pikachu1";
-                pikachus++;
-                break;
-            case checkRange(outCome[spin], 61, 64):
-                betLine[spin] = "moonstone1";
-                moonstones++;
-                break;
-            case checkRange(outCome[spin], 65, 65):
-                betLine[spin] = "seven1";
-                sevens++;
-                break;
+        for (var spin = 0; spin < 3; spin++) {
+            outCome[spin] = Math.floor((Math.random() * 65) + 1);
+            console.log(outCome);
+            switch (outCome[spin]) {
+                case checkRange(outCome[spin], 1, 27):
+                    betLine[spin] = "blank1";
+                    blanks++;
+                    break;
+                case checkRange(outCome[spin], 28, 37):
+                    betLine[spin] = "chest1";
+                    chests++;
+                    break;
+                case checkRange(outCome[spin], 38, 46):
+                    betLine[spin] = "cherry1";
+                    cherries++;
+                    break;
+                case checkRange(outCome[spin], 47, 54):
+                    betLine[spin] = "replay1";
+                    replays++;
+                    break;
+                case checkRange(outCome[spin], 55, 60):
+                    betLine[spin] = "pikachu1";
+                    pikachus++;
+                    break;
+                case checkRange(outCome[spin], 61, 64):
+                    betLine[spin] = "moonstone1";
+                    moonstones++;
+                    break;
+                case checkRange(outCome[spin], 65, 65):
+                    betLine[spin] = "seven1";
+                    sevens++;
+                    break;
+            }
+        }
+        return betLine;
+    }
+
+    //function to determine the winnings
+    function determineWinnings() {
+        if (blanks == 0) {
+            if (chests == 3) {
+                winnings = playerBet * 10;
+            } else if (cherries == 3) {
+                winnings = playerBet * 20;
+            } else if (replays == 3) {
+                winnings = playerBet * 30;
+            } else if (pikachus == 3) {
+                winnings = playerBet * 40;
+            } else if (moonstones == 3) {
+                winnings = playerBet * 75;
+            } else if (sevens == 3) {
+                winnings = playerBet * 100;
+            } else if (chests == 2) {
+                winnings = playerBet * 2;
+            } else if (cherries == 2) {
+                winnings = playerBet * 3;
+            } else if (replays == 2) {
+                winnings = playerBet * 4;
+            } else if (pikachus == 2) {
+                winnings = playerBet * 5;
+            } else if (moonstones == 2) {
+                winnings = playerBet * 7;
+            } else if (sevens == 2) {
+                winnings = playerBet * 20;
+            } else {
+                winnings = playerBet * 1;
+            }
+
+            if (sevens == 1) {
+                winnings = playerBet * 5;
+            }
+            winNumber++;
+            showWinMessage();
+        } else {
+            lossNumber++;
+            showLossMessage();
         }
     }
-    return betLine;
-}
-
-//function to determine the winnings
-if (blanks == 0) {
-    if (chests == 3) {
-        winnings = playerBet * 10;
-    }else if (cherries == 3) {
-        winnings = playerBet * 20;
-    } else if (replays == 3) {
-        winnings = playerBet * 30;
-    } else if (pikachus == 3) {
-        winnings = playerBet * 40;
-    } else if (moonstones == 3) {
-        winnings = playerBet * 75;
-    } else if (sevens == 3) {
-        winnings = playerBet * 100;
-    } else if (chests == 2) {
-        winnings = playerBet * 2;
-    } else if (cherries == 2) {
-        winnings = playerBet * 3;
-    } else if (replays == 2) {
-        winnings = playerBet * 4;
-    } else if (pikachus == 2) {
-        winnings = playerBet * 5;
-    } else if (moonstones == 2) {
-        winnings = playerBet * 7;
-    } else if (sevens == 2) {
-        winnings = playerBet * 20;
-    } else {
-        winnings = playerBet * 1;
+    function showWinMessage() {
+        playerMoney += winnings;
+        payoutTextBox.text = winnings.toString();
+        resetFruitTally();
+        console.log("you won " + winnings + "!");
     }
-
-    if (sevens == 1) {
-        winnings = playerBet * 5;        
+    function showLossMessage() {
+        console.log("you lost " + playerBet + "!");
+        payoutTextBox.text = winnings.toString();
+        resetFruitTally();
     }
-    winNumber++;
-   showWinMessage();
-} else {
-    lossNumber++;
-   showLossMessage();
-    }
+    //adds credit to the spin from the player money and will not add if player money is zero
+    function addCredit() {
 
-function showWinMessage() {
-    playerMoney += winnings;
-    payoutTextBox.text = winnings.toString();
-    resetFruitTally();
-    console.log("you won " + winnings + "!");
-}
-function showLossMessage() {
-    console.log("you lost " + playerBet + "!");
-    payoutTextBox.text = winnings.toString();
-    resetFruitTally();
-}
-//adds credit to the spin from the player money and will not add if player money is zero
-function addCredit() {
-    if (playerMoney <= 0) {
-        playerMoney = 0;
-    }else {
-        playerBet += 50
-    playerMoney -= 50;
+        playerBet += 50;
+        playerMoney -= 50;
         creditTextBox.text = playerMoney.toString();
         betTextBox.text = playerBet.toString();
 
+
+        console.log("credit added");
     }
-    console.log("credit added"); 
-}
 
 function resetGame() {
     playerMoney = 1000
@@ -344,24 +357,23 @@ function createUI(): void {
 
 
 
-// Our Game Kicks off in here
-function main() {
-    // instantiate my container
-    game = new createjs.Container();
-    game.x = 23;
-    game.y = 6;
+    // Our Game Kicks off in here
+    function main() {
+        // instantiate my container
+        game = new createjs.Container();
+        game.x = 23;
+        game.y = 6;
 
 
 
 
-    //create User interface
-    createUI();
+        //create User interface
+        createUI();
 
 
-    //comment
+        //comment
 
-    stage.addChild(game);
+        stage.addChild(game);
 
+    }
 
-
-}
