@@ -145,48 +145,55 @@ function exitbuttonOut() {
 }
 //actual code stuff
 
+//checks the state of the players money and the bet being made.
+function spinReelsCheck() {
+    if (playerMoney < playerBet) {
+        playerBet = playerMoney;
+        spinReels();
+        betTextBox.text = playerBet.toString();
+        creditTextBox.text = playerMoney.toString();
 
+    }
+    else if (playerMoney > 0) {
+        spinReels();
+        console.log("spin clicked");
+    }
+    
+    else if (playerMoney <= 0) {
+        if (confirm("You ran out of credits! play again?")) {
+            resetGame();
+        }
+        
+    }
+    
+}
 function spinReels() {
     //function determines what is being rolled, then goes to figure out of you won anything
-    if (playerBet == 0) {
-    }
-    else {
-        console.log("spin clicked");
+    
+    creditTextBox.text = playerMoney.toString();
+    if (playerBet != 0) {
 
-        if (playerMoney == 0) {
-            if (confirm("you dont have any credit left! play again?")) {
-                resetGame();
+        spinResult = Reels();
+        fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
+        console.log(fruits);
+
+        for (var tile = 0; tile < 3; tile++) {
+            if (turn > 0) {
+                game.removeChild(tiles[tile]);
             }
+            tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
+            tiles[tile].x = 130 + (150 * tile);
+            tiles[tile].y = 145;
 
-        } else if (playerMoney < playerBet) {
-            playerBet = 0;
-            betTextBox.text = playerBet.toString();
-
-        } else {
-
-            creditTextBox.text = playerMoney.toString();
-
-            spinResult = Reels();
-            fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
-            console.log(fruits);
-
-            for (var tile = 0; tile < 3; tile++) {
-                if (turn > 0) {
-                    game.removeChild(tiles[tile]);
-                }
-                tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
-                tiles[tile].x = 130 + (150 * tile);
-                tiles[tile].y = 145;
-
-                game.addChild(tiles[tile]);
-                console.log(game.getNumChildren());
+            game.addChild(tiles[tile]);
+            console.log(game.getNumChildren());
 
 
-            }
-            determineWinnings();
         }
+        determineWinnings();
     }
     }
+    
 
     //utlility function if a value functions 
     function checkRange(value, lowerBounds, upperBounds) {
@@ -306,8 +313,13 @@ function showLossMessage() {
     playerMoney -= playerBet;
         console.log("you lost " + playerBet + "!");
         payoutTextBox.text = winnings.toString();
-        resetFruitTally();
-    }
+    resetFruitTally();
+
+
+}
+
+
+
     //adds credit to the spin from the player money and will not add if player money is zero
 function addCredit() {
 
@@ -353,7 +365,7 @@ function createUI(): void {
     spinButton.y = 310;
     game.addChild(spinButton);
 
-    spinButton.addEventListener("click", spinReels);
+    spinButton.addEventListener("click", spinReelsCheck);
     spinButton.addEventListener("mouseover", spinbuttonOver);
     spinButton.addEventListener("mouseout", spinbuttonOut);
 
