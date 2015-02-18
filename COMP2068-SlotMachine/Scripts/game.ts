@@ -83,7 +83,7 @@ function resetFruitTally() {
     sevens = 0;
     blanks = 0;
 }
-
+//resets all variables
 function resetVariables() {
     var playerMoney = 1000;
     var winnings = 0;
@@ -147,7 +147,7 @@ function exitbuttonOut() {
 
 
 function spinReels() {
-    //add code 
+    //function determines what is being rolled, then goes to figure out of you won anything
     if (playerBet == 0) {
     }
     else {
@@ -294,12 +294,14 @@ function checkJackpot() {
         jackpotTextBox.text = jackpot.toString();
     }
 }
+//shows a message if you win in console and pays out
     function showWinMessage() {
         playerMoney += winnings;
         payoutTextBox.text = winnings.toString();
         resetFruitTally();
         console.log("you won " + winnings + "!");
     }
+//shows a message if you lose in console and does not pay out
 function showLossMessage() {
     playerMoney -= playerBet;
         console.log("you lost " + playerBet + "!");
@@ -323,7 +325,7 @@ function addCredit() {
             console.log("credit added");
         }
     }
-
+//fujnction that resets game to initial settings
 function resetGame() {
     if (confirm("are you sure you want to reset?")) {
         playerMoney = 1000
@@ -416,12 +418,6 @@ function createUI(): void {
 
 
 }
-
-
-
-
-
-
     // Our Game Kicks off in here
     function main() {
         // instantiate my container
