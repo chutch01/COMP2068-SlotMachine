@@ -135,18 +135,21 @@ function exitbuttonOut() {
 
 
 function spinReels() {
-    //add code  
-    console.log("spin clicked");
+    //add code 
+    if (playerBet == 0) {
+    }
+    else {
+        console.log("spin clicked");
 
-    if (playerMoney == 0) {
-        if (confirm("you dont have any credit left! play again?")) {
-            resetGame();
-        }
+        if (playerMoney == 0) {
+            if (confirm("you dont have any credit left! play again?")) {
+                resetGame();
+            }
 
         } else if (playerMoney < playerBet) {
             playerBet = 0;
             betTextBox.text = playerBet.toString();
-            
+
         } else {
 
             creditTextBox.text = playerMoney.toString();
@@ -170,6 +173,7 @@ function spinReels() {
             }
             determineWinnings();
         }
+    }
     }
 
     //utlility function if a value functions 
@@ -291,7 +295,7 @@ function showLossMessage() {
         resetFruitTally();
     }
     //adds credit to the spin from the player money and will not add if player money is zero
-    function addCredit() {
+function addCredit() {
         if (playerMoney < 50) {
             playerBet = playerMoney;
             playerMoney -= playerMoney;
