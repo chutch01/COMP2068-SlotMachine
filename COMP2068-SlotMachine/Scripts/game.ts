@@ -274,6 +274,8 @@ function checkJackpot() {
         alert("You Won the $" + jackpot + " Jackpot!!");
         playerMoney += jackpot;
         jackpot = 1000;
+        creditTextBox.text = playerMoney.toString();
+        jackpotTextBox.text = jackpot.toString();
     }
 }
     function showWinMessage() {
@@ -305,20 +307,21 @@ function showLossMessage() {
     }
 
 function resetGame() {
-    playerMoney = 1000
+    if (confirm("are you sure you want to reset?")) {
+        playerMoney = 1000
     playerBet = 0;
-    winnings = 0;
-    jackpot = 5000;
-    turn = 0;
-    playerBet = 0;
-    winNumber = 0;
-    lossNumber = 0;
-    winRatio = 0;
-    creditTextBox.text = playerMoney.toString();
-    payoutTextBox.text = winnings.toString();
-    jackpotTextBox.text = jackpot.toString();
-    betTextBox.text = playerBet.toString();
-
+        winnings = 0;
+        jackpot = 5000;
+        turn = 0;
+        playerBet = 0;
+        winNumber = 0;
+        lossNumber = 0;
+        winRatio = 0;
+        creditTextBox.text = playerMoney.toString();
+        payoutTextBox.text = winnings.toString();
+        jackpotTextBox.text = jackpot.toString();
+        betTextBox.text = playerBet.toString();
+    }
 
 }
 //this is the actual UI of the game
