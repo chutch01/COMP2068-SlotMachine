@@ -57,7 +57,6 @@ function init() {
     
 
     main();
-    
 }
 
 
@@ -66,6 +65,7 @@ function init() {
 
 function gameLoop() {
     stage.update();
+ 
 }
 
 function gameMusic() {
@@ -132,7 +132,7 @@ function creditbuttonOver() {
 //exit button functions +++++++++++++++++++++++++++++++
 function exitGame() {
     if (confirm("Are you sure you want to quit?")) {
-        close();
+        window.open ('','_self').close();
     }
 }
 function exitbuttonOver() {
@@ -310,21 +310,17 @@ function showLossMessage() {
     }
     //adds credit to the spin from the player money and will not add if player money is zero
 function addCredit() {
-        if (playerMoney <= playerBet) {
-            playerBet = playerMoney;
-            playerMoney = 0;
-            creditTextBox.text = playerMoney.toString();
-            betTextBox.text = playerBet.toString();
-        } else {
-            playerBet += 50;
-            playerMoney -= 50;
-            creditTextBox.text = playerMoney.toString();
-            betTextBox.text = playerBet.toString();
 
-
-            console.log("credit added");
-        }
+    if (playerMoney > 0) {
+        playerBet += 50;
+        playerMoney -= 50;
+        creditTextBox.text = playerMoney.toString();
+        betTextBox.text = playerBet.toString();
+        console.log("credit added");
     }
+            
+        }
+    
 //fujnction that resets game to initial settings
 function resetGame() {
     if (confirm("are you sure you want to reset?")) {
