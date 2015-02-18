@@ -26,6 +26,9 @@ var winRatio = 0;
 //game text
 var creditTextBox: createjs.Text;
 var payoutTextBox: createjs.Text;
+var winTextBox: createjs.Text;
+var loseTextBox: createjs.Text;
+var gameOverTextBox: createjs.Text;
 
 
 //slot item variables
@@ -116,21 +119,27 @@ function creditbuttonOver() {
 function spinReels() {
     //add code  
     console.log("spin clicked");
+
+    if (playerBet == 0) {
+
+    }
+
+    else {
     spinResult = Reels();
     fruits = spinResult[0] + " - " + spinResult[1] + " - " + spinResult[2];
     console.log(fruits);
 
-    for (var tile = 0; tile < 3; tile++) {
-        if (turn > 0) {
-            game.removeChild(tiles[tile]);
-        }
-        tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
-        //CHANGE THESE VALUES LATER++++++++++++++++++++++++++++++++++++++++++
-        tiles[tile].x = 130 + (150 * tile);
-        tiles[tile].y = 145;
+           for (var tile = 0; tile < 3; tile++) {
+               if (turn > 0) {
+                   game.removeChild(tiles[tile]);
+               }
+               tiles[tile] = new createjs.Bitmap("assets/images/" + spinResult[tile] + ".png");
+               tiles[tile].x = 130 + (150 * tile);
+               tiles[tile].y = 145;
 
-        game.addChild(tiles[tile]);
-        console.log(game.getNumChildren());
+               game.addChild(tiles[tile]);
+               console.log(game.getNumChildren());
+           }
     }
 }
     //utlility function if a value functions 
@@ -217,26 +226,37 @@ if (blanks == 0) {
 
     if (sevens == 1) {
         winnings = playerBet * 5;
-        payoutTextBox.text = winnings.toString();
+        
     }
     winNumber++;
-   // showWinMessage();
+   showWinMessage();
 } else {
-        lossNumber++;
-  //  showLossMessage();
+    lossNumber++;
+   showLossMessage();
     }
 
 function showWinMessage() {
+    playerMoney += winnings;
+    payoutTextBox.text = winnings.toString();
+    resetFruitTally();
     console.log("you won " + winnings + "!");
 }
 function showLossMessage() {
     console.log("you lost " + playerBet + "!");
+    payoutTextBox.text = winnings.toString();
+    resetFruitTally();
 }
 function addCredit() {
-    playerBet += 50
+    if (playerMoney <= 0) {
+        playerMoney = 0;
+    }
+    else {
+        playerBet += 50
     playerMoney -= 50;
-    creditTextBox.text = playerMoney.toString();
-    console.log("credit added");
+        creditTextBox.text = playerMoney.toString();
+
+    }
+    console.log("credit added"); 
 }
 
 function resetGame() {
