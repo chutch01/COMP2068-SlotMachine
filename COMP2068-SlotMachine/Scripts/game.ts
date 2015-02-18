@@ -121,7 +121,9 @@ function spinReels() {
     console.log("spin clicked");
 
     if (playerBet == 0) {
+        if confirm("game over. play again?")) {
 
+        }
     }
 
     else {
@@ -260,10 +262,16 @@ function addCredit() {
 }
 
 function resetGame() {
-    resetFruitTally();
-    resetVariables();
-    console.log("game reset");
+    playerMoney = 1000
+    winnings = 0;
+    jackpot = 5000;
+    turn = 0;
+    playerBet = 0;
+    winNumber = 0;
+    lossNumber = 0;
+    winRatio = 0;
     creditTextBox.text = playerMoney.toString();
+
 }
 
 function createUI(): void {
