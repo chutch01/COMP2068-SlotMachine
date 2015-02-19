@@ -19,11 +19,9 @@ var winnings = 0;
 var jackpot = 5000;
 var turn = 0;
 var playerBet = 0;
-var winNumber = 0;
-var lossNumber = 0;
 var spinResult;
 var fruits = "";
-var winRatio = 0;
+
 
 //game text
 var creditTextBox: createjs.Text;
@@ -90,11 +88,9 @@ function resetVariables() {
     var jackpot = 5000;
     var turn = 0;
     var playerBet = 0;
-    var winNumber = 0;
-    var lossNumber = 0;
     var spinResult;
     var fruits = "";
-    var winRatio = 0;
+
 }
 function buttonClicked() {
 }
@@ -158,8 +154,13 @@ function spinReelsCheck() {
         spinReels();
         console.log("spin clicked");
     }
+    else if (playerMoney <= 0 && playerBet !=0) {
+        spinReels();
+        betTextBox.text = playerBet.toString();
+        creditTextBox.text = playerMoney.toString();
+    }
     
-    else if (playerMoney <= 0) {
+    else if (playerMoney <= 0 && playerBet <=0) {
         if (confirm("You ran out of credits! play again?")) {
             resetGame();
         }
@@ -280,11 +281,9 @@ function spinReels() {
             if (sevens == 1) {
                 winnings = playerBet * 5;
             }
-            winNumber++;
             showWinMessage();
             checkJackpot();
         } else {
-            lossNumber++;
             showLossMessage();
         }
     }
@@ -342,9 +341,6 @@ function resetGame() {
         jackpot = 5000;
         turn = 0;
         playerBet = 0;
-        winNumber = 0;
-        lossNumber = 0;
-        winRatio = 0;
         creditTextBox.text = playerMoney.toString();
         payoutTextBox.text = winnings.toString();
         jackpotTextBox.text = jackpot.toString();
